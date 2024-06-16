@@ -1,0 +1,305 @@
+<html lang="en">
+<head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+      
+        <title>Matching Saluran λ/2 dan Faktor Refleksi</title>
+        <meta content="" name="description">
+        <meta content="" name="keywords">
+      
+        <!-- Favicons -->
+        <link href="assets/img/favicon.png" rel="icon">
+        <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+      
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+      
+        <!-- Vendor CSS Files -->
+        <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+        <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+        <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+        <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+        <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+      
+        <!-- Template Main CSS File -->
+        <link href="assets/css/style.css" rel="stylesheet">
+      
+        <!-- =======================================================
+        * Template Name: Green
+        * Updated: Sep 18 2023 with Bootstrap v5.3.2
+        * Template URL: https://bootstrapmade.com/green-free-one-page-bootstrap-template/
+        * Author: BootstrapMade.com
+        * License: https://bootstrapmade.com/license/
+        ======================================================== -->
+</head>
+<style>
+
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    
+
+    .wrapper{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        width: 100%; 
+    }
+
+    label{
+        width: 40%;
+        text-align: center;
+        font-size: 15px;
+        font-weight: 600;
+        margin-right: 10px;
+
+    }
+
+    input[type="number"]{
+        padding: 7px;
+        width: 55%;
+        border-radius: 10px;
+    }
+    input[type="text"]{
+        padding: 7px;
+        width: 55%;
+        border-radius: 10px;
+    }
+    
+    .main-calcu{
+        border-radius: 10px;
+        /* width: 100%; */
+        /* background-color: ; */
+    }
+
+    .title{
+        display: flex;
+        justify-content: space-around;
+        /* color: black; */
+        font-size: 2rem;
+        font-weight: 600;
+        width: 100%;
+        
+    }
+
+    .link{
+        color: rgb(255, 255, 255);
+    }
+
+    .link:hover{
+        color:rgb(12, 111, 55);
+    }
+
+    button{
+        background-color:#ffffff;
+        color: #000000;
+        /* border: none; */
+        width: 20%;
+        
+        padding: 10px 20px;
+        border-radius: 10px;
+        /* cursor: pointer; */
+        font-size: 16px;
+        font-weight: 600;
+        margin-left: 1000px;
+    }
+
+    button:hover{
+        background-color: rgb(12, 111, 55);
+        color: white;
+        transition: .2s ease-in-out;
+    }
+    
+    .dd{
+        margin-top: 150px;
+   
+    }
+  
+</style>
+<body>
+
+
+        <!-- ======= Header ======= -->
+        <header id="header" class="bg-success d-flex align-items-center">
+            <div class="container d-flex align-items-center">
+                
+                <h1 class="logo me-auto"><a href="index.html" class="text-white">Faktor Refleksi</a></h1>
+                <!-- Uncomment below if you prefer to use an image logo -->
+                <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+                
+                <nav id="navbar" class="navbar">
+                    <ul>
+                        <li><a class="nav-link scrollto text-white" href="./index.html">HOME</a></li>
+                        <li><a class="nav-link scrollto text-white" href="./index.html#calculator">CALCULATOR</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header><!-- End Header -->
+
+        <div class="dd">
+            
+    
+                        <label> ZL (Ω) </label>
+                        <input type="text" name="ZL" id="ZL"><br><br>
+                        <label> ZO (Ω) </label>
+                        <input type="number" name="ZO" id="ZO"><br><br>
+    
+                        <button onclick="cetak()" >HITUNG</button><br><br>
+    
+    
+                        <label for="">Nilai Faktor Refleksi: </label>
+                        <input type="text" id="result" readonly>
+                        <p id="demo"></p>
+                        <label for="">Presentase Daya Dipantulkan (%): </label>
+                        <input type="text" id="result1" readonly>
+                        <p id="demo"></p>
+                        <label for="">Persentase Daya Diserap (%): </label>
+                        <input type="text" id="result2" readonly>
+                        <p id="demo"></p>
+            
+       
+       
+        </div>
+            <script>
+                                
+            function cetak(){ 
+                let ZL = document.getElementById("ZL").value;
+                let ZO = document.getElementById("ZO").value;
+
+                let array = ZL.split("");
+                const validasi= array.includes('J');
+
+                if(validasi== true){
+
+                    let ZLValue1 = parseInt(ZL.match(/-?\d+/g)[0],10);
+                    let ZLValue2 = parseInt(ZL.match(/-?\d+/g)[1],10);
+                    let ZOValue = parseInt(ZO.match(/-?\d+/)[0],10);
+
+                    let newZO = parseInt((`${ZL.startsWith('-') ? '-' : ''}${ZOValue}`));
+                    let newZL1 = parseInt((`${ZL.startsWith('-') ? '-' : ''}${ZLValue1}`));
+                    let newZL2 = (`${ZL.startsWith('-') ? '-' : ''}${ZLValue2}`);
+                    console.log("ZL DEPAN"+ newZL1);
+                    console.log("ZL BELAKANG " + newZL2);
+                    console.log("ZO " + newZO);
+
+                    if(isNaN(newZL2)){
+                        console.log("nan " + newZL2);
+
+                        let up = Math.sqrt((newZL1**2)+(newZO**2));
+                        let rec = Math.atan(((newZO*-1)/newZL1));
+                        let arcdeg = (180 / Math.PI) * rec;
+                        const upe = up.toFixed(2);
+                        const arc = arcdeg.toFixed(2);
+                        console.log(upe + "" +arc);
+                        
+                        
+                        let dw = Math.sqrt((newZL1**2)+(newZO**2));
+                        let recdw = Math.atan((newZO / newZL1));
+                        let arcdegdw = (180 / Math.PI) * recdw;
+                        const dwe = dw.toFixed(2);
+                        const arcdw = arcdegdw.toFixed(2);
+                        console.log(dwe + "" +arcdw );
+                        
+                        let result1 = upe / dwe;
+                        let result2 = (arc - arcdw);
+
+                        let hasilPS = (result1 **2) *100;
+                        let hasilPres = hasilPS.toFixed(2);
+                        let hasilserap = 100 - hasilPres;
+                        
+                                
+                        
+                        document.getElementById("result").value=(`${result1} < ${result2}°`);   
+                        document.getElementById("result1").value = hasilPres;
+                        document.getElementById("result2").value = hasilserap;
+
+                    }else{
+
+                        console.log("-------------------");
+                        let sumZup = newZL1 - newZO; 
+                        let sumZdw = newZL1 + newZO; 
+                        console.log(newZO);
+                        console.log(newZL1);
+                        console.log(newZL2);
+                        console.log(sumZup);
+                        console.log(sumZdw);
+
+                        let up = Math.sqrt((sumZup**2)+(newZL2**2));
+                        let rec = Math.atan((newZL2/sumZup));
+                        let arcdeg = (180 / Math.PI) * rec;
+                        console.log(up + " " +arcdeg);
+                        
+                        
+                        let dw = Math.sqrt((sumZdw**2)+(newZL2**2));
+                        let recdw = Math.atan((newZL2 / sumZdw));
+                        let arcdegdw = (180 / Math.PI) * recdw;
+                        console.log(dw + " " +arcdegdw );
+                        
+                        
+                        let result1 = up / dw;
+                        let result2 = (arcdeg - arcdegdw);
+                        let hasilPS = (result1 **2) *100;
+                        let hasilPres = hasilPS.toFixed(2);
+                        let hasilserap = 100 - hasilPres;
+                        
+                                
+                        
+                        document.getElementById("result").value=(`${result1.toFixed(3)} < ${result2.toFixed(3)}°`);   
+                        document.getElementById("result1").value = hasilPres;
+                        document.getElementById("result2").value = hasilserap; 
+                    }
+                }else{
+                    let ZO = parseInt(document.getElementById("ZO").value);
+                    let ZL = parseInt(document.getElementById("ZL").value);
+                    let hasilFR = ((ZL - ZO) / (ZL + ZO));
+                        if(hasilFR < 0 ){
+                            hasilFR = hasilFR * -1;
+                            console.log("tes");     
+                            let hasilFrek = hasilFR.toFixed(3);
+                            let hasilPS = (hasilFrek **2) *100;
+                            let hasilPres = hasilPS.toFixed(2);
+                            let hasilserap = 100 - hasilPres;
+                            
+                                    
+                            document.getElementById("result1").value = hasilPres;
+                            document.getElementById("result2").value = hasilserap;
+                            document.getElementById("result").value = hasilFrek;
+                        }else{
+                            hasilFR * 1;
+                            let hasilFrek = hasilFR.toFixed(3);
+                            let hasilPS = (hasilFrek **2) *100;
+                            let hasilPres = hasilPS.toFixed(2);
+                            let hasilserap = 100 - hasilPres;
+                            
+                                    
+                            document.getElementById("result1").value = hasilPres;
+                            document.getElementById("result2").value = hasilserap;
+                            document.getElementById("result").value = hasilFrek;
+                        }
+                }
+            }
+            
+
+                            
+    </script>
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="assets/vendor/php-email-form/validate.js"></script>
+                           
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
